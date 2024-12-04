@@ -42,13 +42,17 @@ func main() {
 		chars := strings.Split(line, "")
 		myMap = append(myMap, chars)
 	}
-	fmt.Println(myMap)
+	//fmt.Println(myMap)
+	part1(myMap)
+	part2(myMap)
+}
 
+func part1(myMap [][]string) {
 	found := 0
 	for l := range myMap {
 		// lines
 		for c := range myMap[l] {
-			// columns
+
 			if myMap[l][c] == "X" {
 				for _, way := range findPossibleWays(c, l, "M", myMap) {
 					ok, _ := checkNeighbors(c, l, 2, myMap, "A", way)
@@ -140,4 +144,37 @@ func checkNeighbors(abs, ord, step int, fullMap [][]string, neighbor, orientatio
 		}
 		return false, ""
 	}
+}
+
+func part2(myMap [][]string) {
+	found := 0
+	for l := range myMap {
+		for c := range myMap[l] {
+			if myMap[l][c] == "A" {
+				if c > 0 && l > 0 && (myMap[l-1][c-1] == "M" || myMap[l-1][c-1] == "S") {
+					if myMap[l-1][c-1] == "M" && l < len(myMap)-1 && c < len(myMap[l])-1 && myMap[l+1][c+1] == "S" {
+						if checkOtherDiag(c, l, myMap) {
+							found++
+						}
+					} else if myMap[l-1][c-1] == "S" && l < len(myMap)-1 && c < len(myMap[l])-1 && myMap[l+1][c+1] == "M" {
+						if checkOtherDiag(c, l, myMap) {
+							found++
+						}
+					}
+				}
+			}
+		}
+	}
+	fmt.Println(found)
+}
+
+func checkOtherDiag(c, l int, myMap [][]string) bool {
+	if c > 0 && l > 0 && l < len(myMap)-1 && c < len(myMap[l])-1 {
+		if myMap[l-1][c+1] == "M" && myMap[l+1][c-1] == "S" {
+			return true
+		} else if myMap[l-1][c+1] == "S" && myMap[l+1][c-1] == "M" {
+			return true
+		}
+	}
+	return false
 }
