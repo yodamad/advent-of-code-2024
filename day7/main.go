@@ -39,13 +39,16 @@ func main() {
 			nbs = append(nbs, toInt(sNb))
 		}
 
+		// part 1
 		var results []int
 		computeCombinations(nbs, 1, nbs[0], &results)
 		if slices.Contains(results, total) {
 			sum += total
 		}
 	}
+	fmt.Println("part1 is ")
 	fmt.Println(sum)
+	fmt.Println("==============")
 }
 
 func computeCombinations(arr []int, index int, acc int, results *[]int) {
@@ -57,6 +60,9 @@ func computeCombinations(arr []int, index int, acc int, results *[]int) {
 	computeCombinations(arr, index+1, acc+arr[index], results)
 	// Multiplication
 	computeCombinations(arr, index+1, acc*arr[index], results)
+	// Concatenation
+	computeCombinations(arr, index+1, toInt(strconv.Itoa(acc)+strconv.Itoa(arr[index])), results)
+
 }
 
 func toInt(s string) int {
