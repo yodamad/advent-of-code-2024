@@ -58,9 +58,11 @@ func main() {
 
 func findPath(p, zero Point) bool {
 	//fmt.Println(p)
-	if p.value == 9 && !alreadyVisited(p, zero) {
-		nine := NinePoint{p, zero}
-		visited = append(visited, nine)
+	if p.value == 9 {
+		if !alreadyVisited(p, zero) {
+			nine := NinePoint{p, zero}
+			visited = append(visited, nine)
+		}
 		sum++
 		return false
 	}
