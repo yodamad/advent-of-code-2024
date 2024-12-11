@@ -7,6 +7,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 )
 
 const day = "./day10/"
@@ -20,6 +21,7 @@ var sum = 0
 var visited []NinePoint
 
 func main() {
+	start := time.Now().UnixMicro()
 	file, err := os.Open(day + input)
 	if err != nil {
 		log.Fatal(err)
@@ -48,12 +50,13 @@ func main() {
 		}
 		currentY++
 	}
-	fmt.Println(zeros)
+	// fmt.Println(zeros)
 
 	for _, z := range zeros {
 		findPath(z, z)
 	}
 	fmt.Println(sum)
+	fmt.Println(time.Now().UnixMicro() - start)
 }
 
 func findPath(p, zero Point) bool {
