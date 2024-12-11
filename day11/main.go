@@ -4,19 +4,21 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+	"time"
 )
 
 var nbStones = 0
 var resultPart2 = 224577979481346
 
 func main() {
+	start := time.Now().UnixMilli()
 	input := "5178527 8525 22 376299 3 69312 0 275"
 	//input := "125 17"
-	nbTurn := 10000
+	nbTurn := 75
 	inputs := strings.Split(input, " ")
-	for _, i := range inputs {
+	/*for _, i := range inputs {
 		applyRulesPart1(toInt(i), nbTurn)
-	}
+	}*/
 	fmt.Println("-- Part 1 --")
 	fmt.Println(nbStones)
 	fmt.Println("-- Part 2 --")
@@ -33,6 +35,8 @@ func main() {
 		sum += v
 	}
 	fmt.Println(sum)
+	end := time.Now().UnixMilli() - start
+	fmt.Println(strconv.Itoa(int(end)) + "ms")
 }
 
 func applyRulesPart1(nb, turn int) {
